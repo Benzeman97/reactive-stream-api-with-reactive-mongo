@@ -5,6 +5,7 @@ import com.benz.reactive.stream.api.dto.ProductDto;
 import com.benz.reactive.stream.api.service.ProductService;
 import com.benz.reactive.stream.api.utils.ProductUtils;
 import org.springframework.data.domain.Range;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -22,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Flux<ProductDto> getProducts(){
-        return productDao.findAll()
+        return productDao.findAll(Sort.by("prodId").descending())
 //                .delayElements(Duration.ofSeconds(2))
 //                .doOnNext(p-> System.out.println("processing "+p.getProdId()))
                 .map(prod-> ProductUtils.entityToDto(prod)); //1 sort
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Mono<ProductDto> findProduct(int id) {
         return productDao.findById(id)
-                   .map(prod->ProductUtils.entityToDto(prod));// prod id
+                   .map(prod->ProductUtils.entityToDto(prod));
     }
 
     @Override
@@ -61,7 +62,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Flux<ProductDto> getProductInRange(double min, double max) {
-        return productDao.findByPriceBetween(Range.closed(min,max));
+        return productDao.findByPriceBetween(Range.closed(min,max))
+                .map(p->ProductUtils.entityToDto(p));
     }
 
 
