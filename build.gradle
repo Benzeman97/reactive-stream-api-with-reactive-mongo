@@ -18,8 +18,16 @@ repositories {
     mavenCentral()
 }
 
+bootJar{
+    archiveBaseName='reactive-stream'
+    archiveFileName='reactive-stream.jar'
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation ('org.springframework.boot:spring-boot-starter-webflux') /*{
+        exclude group:'org.springframework.boot',module:'spring-boot-starter-reactor-netty'
+    }*/
+    // implementation 'org.springframework.boot:spring-boot-starter-tomcat'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.0.0'
     compileOnly 'org.projectlombok:lombok'
