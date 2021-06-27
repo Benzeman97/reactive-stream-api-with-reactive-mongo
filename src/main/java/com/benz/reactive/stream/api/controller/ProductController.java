@@ -1,7 +1,6 @@
 package com.benz.reactive.stream.api.controller;
 
 import com.benz.reactive.stream.api.dto.ProductDto;
-import com.benz.reactive.stream.api.entity.Product;
 import com.benz.reactive.stream.api.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
